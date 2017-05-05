@@ -1,0 +1,18 @@
+INDEX VERSION 1.129+H:\APCS\Settlers-of-Catan\.metadata\.plugins\org.eclipse.jdt.core
+4164139556.index
+2050908165.index
+4067068589.index
+2799350720.index
+1921434313.index
+363248586.index
+3299422388.index
+51915478.index
+1630659722.index
+507044819.index
+3024903679.index
+4143041746.index
+2355066768.index
+2032977337.index
+262141639.index
+4042793792.index
+2326561478.index
