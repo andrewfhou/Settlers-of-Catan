@@ -1,14 +1,21 @@
 package catan;
 
 public class Piece {
-	private Piece settlement;
-	private Piece city;
-	private Piece road;
+	private String name;
+	private int id;
+	private int player;
+	// 1=s, 2=c, 3=r
 
-	public Piece(Piece s, Piece c, Piece r) {
-		settlement = s;
-		city = c;
-		road = r;
+	public Piece(String n, int p) {
+		name = n;
+		if (name.equals("Road")) {
+			id = 3;
+		} else if (name.equals("Settlement")) {
+			id = 1;
+		} else if (name.equals("City")) {
+			id = 2;
+		}
+		player = p;
 	}
 
 	int r = 0;
@@ -45,8 +52,7 @@ public class Piece {
 		return c * 2 + s;
 	}
 
-	public int rollDice()
-	{
-		return (int)(Math.random()*6)+1+(int)(Math.random()*6)+1;
+	public int rollDice() {
+		return (int) (Math.random() * 6) + 1 + (int) (Math.random() * 6) + 1;
 	}
 }

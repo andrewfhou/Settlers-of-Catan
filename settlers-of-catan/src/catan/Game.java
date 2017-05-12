@@ -3,6 +3,11 @@ package catan;
 import java.util.Scanner;
 
 public class Game {
+
+	public static int diceRoll() {
+		return (int) (Math.random() * 6) + (int) (Math.random() * 6);
+	}
+
 	public static void main(String[] args) {
 
 		Hex[][] board = new Hex[5][];
@@ -42,21 +47,40 @@ public class Game {
 		System.out.println("Select the number of players");
 		p = s.nextInt();
 
-		Player[] players = new Player[p];
+		Player[] players = new Player[p]; // makes an array of players
+
+		// sets length of resource allocation array for each hex object
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				board[i][j].initPlayerNum(p);
+			}
+		}
 
 		// init settlements & roads
 		for (int i = 0; i < players.length; i++) {
-			System.out.println("Player "+(i+1)+", place your first settlement");
-			System.out.println("Player "+(i+1)+", place your first road");
+			System.out.println("Player " + (i + 1) + ", place your first settlement");
+			System.out.println("Player " + (i + 1) + ", place your first road");
 		}
-		for (int i = players.length - 1; i>=0; i--) {
-			System.out.println("Player "+(i+1)+", place your second settlement");
-			System.out.println("Player "+(i+1)+", place your second road");
+		for (int i = players.length - 1; i >= 0; i--) {
+			System.out.println("Player " + (i + 1) + ", place your second settlement");
+			System.out.println("Player " + (i + 1) + ", place your second road");
 
 		}
 
 		// gameplay loop
 		for (Player current : players) {
+			int roll = diceRoll();
+			for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[i].length; j++) {
+					if (roll == board[i][j].getValue()) {
+						for (int k = 0; k < players.length; k++) {
+							players[k].incrementResources(board[i][j].getType(), 
+									board[i][j].allocateResources()[k]);
+						}
+					}
+				}
+			}
+
 			System.out.println(current.displayResources());
 			System.out.println("What would you like to do?");
 
