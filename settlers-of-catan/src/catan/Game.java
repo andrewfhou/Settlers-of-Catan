@@ -56,9 +56,17 @@ public class Game {
 			}
 		}
 
-		// init settlements & roads
+		
+		int r_in, c_in, corner_in; //input variables
+		
+		// initial settlements & roads
 		for (int i = 0; i < players.length; i++) {
 			System.out.println("Player " + (i + 1) + ", place your first settlement");
+			System.out.println("Temporary input, row then column then corner");
+			r_in=s.nextInt();
+			c_in=s.nextInt();
+			corner_in=s.nextInt();
+			board[r_in][c_in].buildSettlement(corner_in, 1, i);
 			System.out.println("Player " + (i + 1) + ", place your first road");
 		}
 		for (int i = players.length - 1; i >= 0; i--) {
@@ -74,8 +82,7 @@ public class Game {
 				for (int j = 0; j < board[i].length; j++) {
 					if (roll == board[i][j].getValue()) {
 						for (int k = 0; k < players.length; k++) {
-							players[k].incrementResources(board[i][j].getType(), 
-									board[i][j].allocateResources()[k]);
+							players[k].incrementResources(board[i][j].getType(), board[i][j].allocateResources()[k]);
 						}
 					}
 				}
@@ -83,6 +90,7 @@ public class Game {
 
 			System.out.println(current.displayResources());
 			System.out.println("What would you like to do?");
+			
 
 		}
 

@@ -2,12 +2,14 @@ package catan;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 
@@ -16,59 +18,13 @@ import javax.swing.JPanel;
 
 public class GUI extends JPanel {
 
-	/*Hex[][] board = new Hex[5][];
-	{
-
-		board[0] = new Hex[3];
-		board[1] = new Hex[4];
-		board[2] = new Hex[5];
-		board[3] = new Hex[4];
-		board[4] = new Hex[3];
-
-		int[] values = new int[] { 11, 12, 9, 4, 6, 5, 10, 3, 11, 4, 8, 8, 10, 9, 3, 5, 2, 6 };
-		int count = 0, type;
-		int[] resources = new int[] { 1, 3, 4, 3, 4, 4 };
-
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				while (true) {
-					type = (int) (Math.random() * 6);
-					if (resources[type] != 0) {
-						resources[type]--;
-					} else {
-						continue;
-					}
-					break;
-				}
-				if (type != 0) {
-					board[i][j] = new Hex(type, values[count]);
-					count++;
-				} else {
-					board[i][j] = new Hex(0, 0);
-				}
-			}
-		}
-
-		// prints board
-		// for (Hex[] row: board)
-		// {
-		// for (Hex item : row)
-		// {
-		// System.out.print(item+" _ ");
-		// }
-		// System.out.println();
-		// }
-	}*/
-
-	int board1[]=new int[3];
-	int board2[]=new int[4];
-	int board3[]=new int[5];
-	int board4[]=new int[4];
-	int board5[]=new int[4];
-	public static ArrayList<String> types = new ArrayList<String>();
+	ArrayList<String> hexValue = new ArrayList<String>(Arrays.asList("5", "2", "6", "9", "4", "5", "3", "10", "4", "6",
+			"8", "8", "11", "3", "9", "11", "10", "12"));
+	int e = 0;
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		ArrayList<String> x = new ArrayList<String>();
 		int forest = 4;
 		int grain = 4;
 		int ore = 3;
@@ -83,45 +39,44 @@ public class GUI extends JPanel {
 				a.addPoint((int) (20 + 100 + 80 + 50 * Math.cos(i * 2 * Math.PI / 6)),
 						(int) (40 + 50 + 100 + j + 50 * Math.sin(i * 2 * Math.PI / 6)));
 
-				if (c < 5 && forest > 0) {
-					forest--;
-					types.add("forest");
-					g.setColor((Color.GREEN).darker().darker());
-				
-				}
-				else if (c < 9 && c >= 5 && grain > 0) {
-					grain--;
-					g.setColor(Color.yellow);
-					types.add("grain");
-				}
-				else if (c < 13 && c >= 9 && wool > 0) {
-					wool--;
-					g.setColor(Color.green);
-					types.add("Sheep");
-				}
-				else if (c < 16 && c >= 13 && brick > 0) {
-					brick--;
-					g.setColor(Color.red.darker());
-					types.add("clay");
-				}
-				else if (c < 19 && c >= 16 && ore > 0) {
-					ore--;
-					g.setColor(Color.gray);
-					types.add("Quarry");
-				}
-				else if (c == 19 && desert != 0) {
-					desert--;
-					g.setColor(Color.black);
-					types.add("desert");
-				}
-				else
-					j-=90;
-					
+			if (c < 5 && forest > 0) {
+				forest--;
+				x.add("forest");
+				e++;
+				g.setColor((Color.GREEN).darker().darker());
 
-				g.fillPolygon(a);
-				g.drawPolygon(a);
-				
-			
+			} else if (c < 9 && c >= 5 && grain > 0) {
+				grain--;
+				x.add("grain");
+				e++;
+				g.setColor(Color.yellow);
+
+			} else if (c < 13 && c >= 9 && wool > 0) {
+				wool--;
+				x.add("Sheep");
+				e++;
+				g.setColor(Color.green);
+			} else if (c < 16 && c >= 13 && brick > 0) {
+				brick--;
+				x.add("clay");
+				e++;
+				g.setColor(Color.red.darker());
+			} else if (c < 19 && c >= 16 && ore > 0) {
+				ore--;
+				x.add("Quarry");
+				e++;
+				g.setColor(Color.gray);
+			} else if (c == 19 && desert != 0) {
+				desert--;
+				x.add("desert");
+				hexValue.add(e-1, "0");
+				g.setColor(Color.black);
+			} else
+				j -= 90;
+
+			g.fillPolygon(a);
+			g.drawPolygon(a);
+
 		}
 
 		for (int j = 0; j < 360; j += 90) {
@@ -133,43 +88,41 @@ public class GUI extends JPanel {
 
 			if (c < 5 && forest > 0) {
 				forest--;
-				types.add("forest");
+				x.add("forest");
+				e++;
 				g.setColor((Color.GREEN).darker().darker());
-			
-			}
-			else if (c < 9 && c >= 5 && grain > 0) {
+
+			} else if (c < 9 && c >= 5 && grain > 0) {
 				grain--;
+				x.add("grain");
+				e++;
 				g.setColor(Color.yellow);
-				types.add("grain");
-			}
-			else if (c < 13 && c >= 9 && wool > 0) {
+
+			} else if (c < 13 && c >= 9 && wool > 0) {
 				wool--;
+				x.add("Sheep");
+				e++;
 				g.setColor(Color.green);
-				types.add("Sheep");
-			}
-			else if (c < 16 && c >= 13 && brick > 0) {
+			} else if (c < 16 && c >= 13 && brick > 0) {
 				brick--;
+				x.add("clay");
+				e++;
 				g.setColor(Color.red.darker());
-				types.add("clay");
-			}
-			else if (c < 19 && c >= 16 && ore > 0) {
+			} else if (c < 19 && c >= 16 && ore > 0) {
 				ore--;
+				x.add("Quarry");
+				e++;
 				g.setColor(Color.gray);
-				types.add("Quarry");
-			}
-			else if (c == 19 && desert != 0) {
+			} else if (c == 19 && desert != 0) {
 				desert--;
+				x.add("desert");
+				hexValue.add(e-1, "0");
 				g.setColor(Color.black);
-				types.add("desert");
-			}
-			else
-				j-=90;
+			} else
+				j -= 90;
 			g.fillPolygon(d);
 			g.drawPolygon(d);
-			
-			
 
-			
 		}
 		for (int j = 0; j < 450; j += 90) {
 			int c = (int) (Math.random() * 19) + 1;
@@ -180,37 +133,38 @@ public class GUI extends JPanel {
 
 			if (c < 5 && forest > 0) {
 				forest--;
-				types.add("forest");
+				x.add("forest");
+				e++;
 				g.setColor((Color.GREEN).darker().darker());
-			
-			}
-			else if (c < 9 && c >= 5 && grain > 0) {
+
+			} else if (c < 9 && c >= 5 && grain > 0) {
 				grain--;
+				x.add("grain");
+				e++;
 				g.setColor(Color.yellow);
-				types.add("grain");
-			}
-			else if (c < 13 && c >= 9 && wool > 0) {
+
+			} else if (c < 13 && c >= 9 && wool > 0) {
 				wool--;
+				x.add("Sheep");
+				e++;
 				g.setColor(Color.green);
-				types.add("Sheep");
-			}
-			else if (c < 16 && c >= 13 && brick > 0) {
+			} else if (c < 16 && c >= 13 && brick > 0) {
 				brick--;
+				x.add("clay");
+				e++;
 				g.setColor(Color.red.darker());
-				types.add("clay");
-			}
-			else if (c < 19 && c >= 16 && ore > 0) {
+			} else if (c < 19 && c >= 16 && ore > 0) {
 				ore--;
+				x.add("Quarry");
+				e++;
 				g.setColor(Color.gray);
-				types.add("Quarry");
-			}
-			else if (c == 19 && desert != 0) {
+			} else if (c == 19 && desert != 0) {
 				desert--;
+				x.add("desert");
+				hexValue.add(e-1, "0");
 				g.setColor(Color.black);
-				types.add("desert");
-			}
-			else
-				j-=90;
+			} else
+				j -= 90;
 			g.fillPolygon(p);
 			g.drawPolygon(p);
 
@@ -222,40 +176,40 @@ public class GUI extends JPanel {
 				s.addPoint((int) (160 + 100 + 100 + 80 + 50 * Math.cos(i * 2 * Math.PI / 6)),
 						(int) (-5 + 50 + 100 + j + 50 * Math.sin(i * 2 * Math.PI / 6)));
 
-
 			if (c < 5 && forest > 0) {
 				forest--;
-				types.add("forest");
+				x.add("forest");
+				e++;
 				g.setColor((Color.GREEN).darker().darker());
-			
-			}
-			else if (c < 9 && c >= 5 && grain > 0) {
+
+			} else if (c < 9 && c >= 5 && grain > 0) {
 				grain--;
+				x.add("grain");
+				e++;
 				g.setColor(Color.yellow);
-				types.add("grain");
-			}
-			else if (c < 13 && c >= 9 && wool > 0) {
+
+			} else if (c < 13 && c >= 9 && wool > 0) {
 				wool--;
+				x.add("Sheep");
+				e++;
 				g.setColor(Color.green);
-				types.add("Sheep");
-			}
-			else if (c < 16 && c >= 13 && brick > 0) {
+			} else if (c < 16 && c >= 13 && brick > 0) {
 				brick--;
+				x.add("clay");
+				e++;
 				g.setColor(Color.red.darker());
-				types.add("clay");
-			}
-			else if (c < 19 && c >= 16 && ore > 0) {
+			} else if (c < 19 && c >= 16 && ore > 0) {
 				ore--;
+				x.add("Quarry");
+				e++;
 				g.setColor(Color.gray);
-				types.add("Quarry");
-			}
-			else if (c == 19 && desert != 0) {
+			} else if (c == 19 && desert != 0) {
 				desert--;
+				x.add("desert");
+				hexValue.add(e-1, "0");
 				g.setColor(Color.black);
-				types.add("desert");
-			}
-			else
-				j-=90;
+			} else
+				j -= 90;
 			g.fillPolygon(s);
 			g.drawPolygon(s);
 		}
@@ -266,45 +220,90 @@ public class GUI extends JPanel {
 				a.addPoint((int) (240 + 100 + 100 + 80 + 50 * Math.cos(i * 2 * Math.PI / 6)),
 						(int) (40 + 50 + 100 + j + 50 * Math.sin(i * 2 * Math.PI / 6)));
 
-
 			if (c < 5 && forest > 0) {
 				forest--;
-				types.add("forest");
+				x.add("forest");
+				e++;
 				g.setColor((Color.GREEN).darker().darker());
-			
-			}
-			else if (c < 9 && c >= 5 && grain > 0) {
+
+			} else if (c < 9 && c >= 5 && grain > 0) {
 				grain--;
+				x.add("grain");
+				e++;
 				g.setColor(Color.yellow);
-				types.add("grain");
-			}
-			else if (c < 13 && c >= 9 && wool > 0) {
+
+			} else if (c < 13 && c >= 9 && wool > 0) {
 				wool--;
+				x.add("Sheep");
+				e++;
 				g.setColor(Color.green);
-				types.add("Sheep");
-			}
-			else if (c < 16 && c >= 13 && brick > 0) {
+			} else if (c < 16 && c >= 13 && brick > 0) {
 				brick--;
+				x.add("clay");
+				e++;
 				g.setColor(Color.red.darker());
-				types.add("clay");
-			}
-			else if (c < 19 && c >= 16 && ore > 0) {
+			} else if (c < 19 && c >= 16 && ore > 0) {
 				ore--;
+				x.add("Quarry");
+				e++;
 				g.setColor(Color.gray);
-				types.add("Quarry");
-			}
-			else if (c == 19 && desert != 0) {
+			} else if (c == 19 && desert != 0) {
 				desert--;
+				x.add("desert");
+				hexValue.add(e-1, "0");
 				g.setColor(Color.black);
-				types.add("desert");
-			}
-			else
-				j-=90;
+			} else
+				j -= 90;
 			g.fillPolygon(a);
 			g.drawPolygon(a);
 			g.setColor(Color.black);
-			g.drawString("12", 353, 105);
-			g.drawString("2", 355, 195);
+			Font font = new Font("Times New Roman", 1, 20);
+			g.setFont(font);
+			int o = 0;
+			g.drawString(hexValue.get(o), 191, 200);
+			o++;
+			g.drawString(hexValue.get(o), 191, 288);
+			o++;
+			g.drawString(hexValue.get(o), 191, 378);
+			o++;
+			// first column^^
+			g.drawString(hexValue.get(o), 275, 150);
+			o++;
+			g.drawString(hexValue.get(o), 275, 240);
+			o++;
+			g.drawString(hexValue.get(o), 275, 330);
+			o++;
+			g.drawString(hexValue.get(o), 275, 420);
+			o++;
+			//second column^^
+			g.drawString(hexValue.get(o), 351, 108);
+			o++;
+			g.drawString(hexValue.get(o), 351, 198);
+			o++;
+			g.drawString(hexValue.get(o), 351, 288);
+			o++;
+			g.drawString(hexValue.get(o), 351, 378);
+			o++;
+			g.drawString(hexValue.get(o), 351, 468);
+			o++;
+			// middle column^^
+			g.drawString(hexValue.get(o), 430, 150);
+			o++;
+			g.drawString(hexValue.get(o), 430, 240);
+			o++;
+			g.drawString(hexValue.get(o), 430, 330);
+			o++;
+			g.drawString(hexValue.get(o), 430, 420);
+			o++;
+			//fourth column^^	
+			g.drawString(hexValue.get(o), 511, 200);
+			o++;
+			g.drawString(hexValue.get(o), 511, 288);
+			o++;
+			g.drawString(hexValue.get(o), 511, 378);
+			
+			// last column
+			
 
 		}
 	}
@@ -323,5 +322,5 @@ public class GUI extends JPanel {
 
 		frame.show();
 	}
-	
+
 }

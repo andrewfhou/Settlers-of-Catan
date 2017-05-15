@@ -6,8 +6,8 @@ public class Player {
 	private int Resources[] = { 0, 0, 0, 0, 0 };
 	private ArrayList <Card> developmentCards;
 	private int victorypoints = 0;
-	private static int id = 0;
-
+	private int id = 0;
+	private static int idcount=0;
 	/*
 	 * Brick = 0 
 	 * Sheep = 1 
@@ -17,7 +17,13 @@ public class Player {
 	 */
 	
 	public Player() {
-		id++;
+		id=0;
+		idcount++;
+	}
+	
+	public int getID()
+	{
+		return(id);
 	}
 	
 	public void incrementResources(int index, int amt) {

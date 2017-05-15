@@ -19,17 +19,17 @@ public class Hex {
 	}
 
 	public void buildSettlement(int corner, int type, int pid) {
-		if (type == 1) {
+		if (type == 1) { //if it's a settlement
 			corners[corner] = new Piece("Settlement", pid);
-		} else if (type == 2) {
+		} else if (type == 2) { //if it's a city
 			corners[corner] = new Piece("City", pid);
 		}
 
-		incrementResourceArray(pid);
+		incrementResourceArray(pid, type); //this is some weird shit
 	}
 
-	public void incrementResourceArray(int p) {
-		resourceAllocation[p]++;
+	public void incrementResourceArray(int p, int a) {
+		resourceAllocation[p]+=a; //How many each player earns from this tile: [0, 1, 1, 0] means players 2 and 3 each get 1
 	}
 
 	public boolean hasSettlement(int corner) {
